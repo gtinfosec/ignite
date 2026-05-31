@@ -149,11 +149,16 @@ func (dc *dockerClient) InspectContainer(container string) (*runtime.ContainerIn
 		return nil, err
 	}
 
+        // fmt.Println("response")
+        // fmt.Println(res.NetworkSettings.Networks["bridge"].IPAddress)
+        // fmt.Println("")
+        // fmt.Println("body")
+        // fmt.Println(body)
 	return &runtime.ContainerInspectResult{
 		ID:        res.ID,
 		Image:     res.Image,
 		Status:    res.State.Status,
-		IPAddress: net.ParseIP(res.NetworkSettings.IPAddress),
+		IPAddress: net.ParseIP(res.NetworkSettings.Networks["bridge"].IPAddress), // docker changed the json, had to modify access
 		PID:       uint32(res.State.Pid),
 	}, nil
 }

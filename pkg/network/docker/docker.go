@@ -33,6 +33,7 @@ func (plugin *dockerNetworkPlugin) SetupContainerNetwork(containerID string, _ .
 		return nil, fmt.Errorf("failed to inspect container %s: %v", containerID, err)
 	}
 
+
 	return &network.Result{
 		Addresses: []network.Address{
 			{
